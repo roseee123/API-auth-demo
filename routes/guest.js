@@ -12,13 +12,11 @@ router.route('/')
                 res.sendStatus(500);
                 return console.error(err);
             }
- 
             // 沒有找到指定的資源
             if (!results.length) {
                 res.sendStatus(404);
                 return;
             }
- 
             res.json(results);
         });
     });
@@ -32,15 +30,12 @@ router.route('/:id')
                 res.sendStatus(500);
                 return console.error(err);
             }
- 
             if (!results.length) {
                 res.sendStatus(404);
                 return;
             }
- 
             res.json(results);
         });
     });
     
- 
 module.exports = router;

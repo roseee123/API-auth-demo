@@ -7,7 +7,7 @@ module.exports = {
     },
     port: 3000,
     // JWT 自訂私鑰
-    secret: '55665566',
+    secret: 'secret',
     // JWT 加上多少時間過期 (UNIX 時間戳)
     increaseTime: 1000
 };
