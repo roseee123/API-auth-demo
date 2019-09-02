@@ -3,8 +3,8 @@ var express = require('express');
 var cors = require('cors');                 // 跨來源資源共用 (允許不同網域的 HTTP 請求)
  
 var conf = require('./conf');
-var guestRoutes = require('./routes/guest');
-// var userRoutes = require('./routes/user');
+// var guestRoutes = require('./routes/guest');
+var userRoutes = require('./routes/user');
 var oauth2TokenRoutes = require('./routes/oauth2-token');
 
 var app = express();
@@ -17,8 +17,9 @@ app.use(bodyparser.json());
 
 app.use('/auth', oauth2TokenRoutes);
 
-app.use('/', guestRoutes);
-// app.use('/user', userRoutes);
+// app.use('/', guestRoutes);
+
+app.use('/', userRoutes);
 
 app.listen(conf.port, function () {
     console.log('app listening on port ' + conf.port + '!');
