@@ -7,6 +7,10 @@ var sql;
 
 module.exports = {
     items: function (req, callback) {
+        sql = mysql.format('SELECT id,title FROM ' + tableName);
+        return connection.query(sql, callback);
+    },
+    itemsTotal: function (req, callback) {
         sql = mysql.format('SELECT * FROM ' + tableName);
         return connection.query(sql, callback);
     },
@@ -26,4 +30,13 @@ module.exports = {
         sql = mysql.format('UPDATE ' + tableName + ' SET ? WHERE id = ?', [req.body, req.params.id]);
         return connection.query(sql, callback);
     }
+    // totaldata: function (req, callback) {
+    //     sql = mysql.format('SELECT COUNT(id) as total FROM ' + tableName);
+    //     return connection.query(sql, callback);
+    // },
+    // limititems: function (req, callback) {
+    //     var firstdata = req.params.page*5;
+    //     sql = mysql.format('SELECT * FROM ' + tableName + ' WHERE id > ? LIMIT 5',[firstdata]);
+    //     return connection.query(sql, callback);
+    // }
 };

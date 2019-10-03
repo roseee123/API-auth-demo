@@ -4,6 +4,48 @@ var oauth2 = require('../models/oauth2');
 
 var router = express.Router();
 
+// // 獲取 資料筆數 請求
+// router.get('/total', function (req, res) {
+//     // res.send('Token Verified');
+//     // 無權限
+//     if (res.customError) {
+//          res.status(res.customStatus).json(res.customError);
+//         return;
+//     }
+//     user.totaldata(req, function (err, results, fields) {
+//         if (err) {
+//             res.sendStatus(500);
+//             return console.error(err);
+//         }
+//         // 沒有找到指定的資源
+//         if (!results.length) {
+//             res.sendStatus(404);
+//             return;
+//         } 
+//         res.json(results);
+//     });
+// });
+// 獲取 /user 請求
+router.get('/total', function (req, res) {
+    // res.send('Token Verified');
+    // 無權限
+    if (res.customError) {
+         res.status(res.customStatus).json(res.customError);
+        return;
+    }
+    user.itemsTotal(req, function (err, results, fields) {
+        if (err) {
+            res.sendStatus(500);
+            return console.error(err);
+        }
+        // 沒有找到指定的資源
+        if (!results.length) {
+            res.sendStatus(404);
+            return;
+        } 
+        res.json(results);
+    });
+});
 // 獲取 /user 請求
 router.get('/', function (req, res) {
     // res.send('Token Verified');
