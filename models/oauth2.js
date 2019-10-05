@@ -1,13 +1,13 @@
 var mysql = require('mysql');
 var jwt = require('jsonwebtoken');
 var conf = require('../conf');
- 
+
 var connection = mysql.createConnection(conf.db);
 var tableName = 'account';
 var sql;
 
 module.exports = {
-    authenticate: function(req, res) {
+    authenticate: function (req, res) {
         // var userid = req.body.userid;
         // var password = req.body.password;
         // let user = {
@@ -38,9 +38,9 @@ module.exports = {
                     message: 'there are some error with querry'
                 })
             } else {
-                if (results.length >0) {
+                if (results.length > 0) {
                     if (password == results[0].password) {
-                        var token = jwt.sign({ userid: userid }, conf.secret, {'expiresIn': '1h'} );
+                        var token = jwt.sign({ userid: userid }, conf.secret, { 'expiresIn': '1h' });
                         res.json({
                             status: true,
                             token: token
@@ -48,32 +48,31 @@ module.exports = {
                     } else {
                         res.json({
                             status: false,
-                            message:'userid and password does not match'
+                            message: 'userid and password does not match'
                         });
                     }
                 } else {
                     res.json({
                         status: false,
-                        message:'userid does not exits'
+                        message: 'userid does not exits'
                     });
                 }
             }
-        });    
+        });
     },
-    verifyToken: function(req, res,next) {
-        var userid = req.body.userid;
-        var token=req.body.token || req.headers['token'];
-        if (token){
-            jwt.verify(token, conf.secret, function(err,res){
-                if (err){
-                 res.status(500).send('Token Invalid');
-            } else {
-                next();
-                // res.send({status: true, token: token});
-            }
-        })
+    verifyToken: function (req, res, next) {
+        var token = req.body.token || req.headers['token'];
+        if (token) {
+            jwt.verify(token, conf.secret, function (err, res) {
+                if (err) {
+                    res.status(500).send('Token Invalid');
+                } else {
+                    next();
+                    // res.send({status: true, token: token});
+                }
+            })
         } else {
-        res.send('Please send a token')
+            res.send('Please send a token')
         }
-    }     
+    }
 };
